@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -22,26 +23,30 @@ namespace SimpleScriptRunner
         {
             try
             {
+                IEnumerable<string> optional = argArray.Where(a => a.StartsWith("-"));
                 var required = argArray.Where(a => !a.StartsWith("-")).ToArray();
-                var optional = argArray.Where(a => a.StartsWith("-"));
-                bool requireRollback = optional.Any(a => a == "-requirerollback");
-                bool useTransactions = optional.Any(a => a == "-usetransactions");
-
-                var scriptTarget = required.Length > 3 ? new SqlDatabase(required[0], required[1], required[2], required[3]) : new SqlDatabase(required[0], required[1]);
-                var path = required.Last();
-                foreach (var releaseDirectoryPath in Directory.GetDirectories(path, "Release *"))
-                {
-                    var scriptSource = new FolderContainingNumberedSqlScripts(releaseDirectoryPath, "*.sql");
-                    var updater = new Updater<ITextScriptTarget>(scriptSource, scriptTarget, requireRollback, useTransactions);
-                    updater.ApplyScripts();
-                }
-
+                var requireRollback = optional.Any(a => a == "-requirerollback");
+                var useTransactions = optional.Any(a => a == "-usetransactions");
+                Execute(required[0], required[1], required.Last(), useTransactions, requireRollback, required[2], required[3]);
                 return 0;
             }
             catch (Exception ex)
             {
                 WriteMessage(Assembly.GetExecutingAssembly().FullName, string.Empty, Category.error, "1", ex.ToString());
                 return 1;
+            }
+        }
+
+        private static void Execute(string serverName, string databaseName, string path = ".", bool useTransactions = false, bool requireRollback = false, string username = null, string password = null)
+        {
+            var scriptTarget = (!string.IsNullOrWhiteSpace(username) && !string.IsNullOrWhiteSpace(password))
+                                   ? new SqlDatabase(serverName, databaseName, username, password)
+                                   : new SqlDatabase(serverName, databaseName);
+            foreach (var releaseDirectoryPath in Directory.GetDirectories(path, "Release *"))
+            {
+                var scriptSource = new FolderContainingNumberedSqlScripts(releaseDirectoryPath, "*.sql");
+                var updater = new Updater<ITextScriptTarget>(scriptSource, scriptTarget, requireRollback, useTransactions);
+                updater.ApplyScripts();
             }
         }
 
