@@ -37,7 +37,7 @@ namespace SimpleScriptRunner
             }
         }
 
-        private static void Execute(string serverName, string databaseName, string path = ".", bool useTransactions = false, bool requireRollback = false, string username = null, string password = null)
+        public static void Execute(string serverName, string databaseName, string path = ".", bool useTransactions = false, bool requireRollback = false, string username = null, string password = null)
         {
             var scriptTarget = (!string.IsNullOrWhiteSpace(username) && !string.IsNullOrWhiteSpace(password))
                                    ? new SqlDatabase(serverName, databaseName, username, password)
