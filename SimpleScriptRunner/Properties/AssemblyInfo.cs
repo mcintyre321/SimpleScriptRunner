@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("SimpleScriptRunner")]
-[assembly: AssemblyDescription("Command line tool for automatically diffing two SQL databases and producing numbered change scripts - https://github.com/mcintyre321/SimpleScriptRunner")]
+[assembly: AssemblyDescription("Command line tool for updating database schema from numbered scripts, supports rollback, release folders, idempotency checks, and above all - it's simple! - https://github.com/mcintyre321/SimpleScriptRunner")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Microsoft")]
 [assembly: AssemblyProduct("SimpleScriptRunner")]
