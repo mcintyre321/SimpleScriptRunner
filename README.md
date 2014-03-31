@@ -25,9 +25,11 @@ Release 2\0001 - Create Items table.sql
 
 ```[options]``` can be any combination of the following switches
 
-||-usetransactions||Each numbered migration will take place in a new transaction, and rollback if there are any issues||
-||-requirerollback||Each script x.sql must have a corresponding x.rollback.sql. When the script is run, the rollup is executed, then the rollback, then the rollup again, to confirm the rollback doesn't cause errors||
-||-requireidempotency||Each script will be run twice, to confirm idempotency||
+switch| what it does
+------|-------------
+-usetransactions|Each numbered migration will take place in a new transaction, and rollback if there are any issues|
+-requirerollback|Each script x.sql must have a corresponding x.rollback.sql. When the script is run, the rollup is executed, then the rollback, then the rollup again, to confirm the rollback doesn't cause errors|
+-requireidempotency|Each script will be run twice, to confirm idempotency|
 
 *What it does*
 
