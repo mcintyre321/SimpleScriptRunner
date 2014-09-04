@@ -11,6 +11,7 @@ namespace SimpleScriptRunner
         {
             this.path = path;
             var fi = new FileInfo(path);
+
             Version = new ScriptVersion(
                                         int.Parse(fi.Directory.Name.Substring(fi.Directory.Name.IndexOf(' ')).Trim()),
                                         int.Parse(fi.Name.Substring(0, fi.Name.IndexOf(' ')).Trim()),

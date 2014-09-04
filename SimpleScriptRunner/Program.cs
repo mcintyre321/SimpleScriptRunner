@@ -19,7 +19,7 @@ namespace SimpleScriptRunner
 
         #endregion
 
-        public static int Main(string[] argArray)
+        public static bool Main(string[] argArray)
         {
             try
             {
@@ -27,13 +27,15 @@ namespace SimpleScriptRunner
                 var required = argArray.Where(a => !a.StartsWith("-")).ToArray();
                 var requireRollback = optional.Any(a => a == "-requirerollback");
                 var useTransactions = optional.Any(a => a == "-usetransactions");
-                Execute(required[0], required[1], required.Last(), useTransactions, requireRollback, required[2], required[3]);
-                return 0;
+
+                if (required.Count() == 3) Execute(required[0], required[1], required.Last(), useTransactions, requireRollback);
+                else Execute(required[0], required[1], required.Last(), useTransactions, requireRollback, required[2], required[3]);
+                return true;
             }
             catch (Exception ex)
             {
                 WriteMessage(Assembly.GetExecutingAssembly().FullName, string.Empty, Category.error, "1", ex.ToString());
-                return 1;
+                return false;
             }
         }
 
