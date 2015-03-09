@@ -1,6 +1,8 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30501.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleScriptRunner", "SimpleScriptRunner\SimpleScriptRunner.csproj", "{2046EE68-E113-4846-A6D4-C2C7C101CCFF}"
 EndProject
 Global
@@ -18,7 +20,7 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		CodeStyleEnforcer_RulesLocation = 0
 		CodeStyleEnforcer_Active = -1
+		CodeStyleEnforcer_RulesLocation = 0
 	EndGlobalSection
 EndGlobal

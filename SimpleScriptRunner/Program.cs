@@ -19,7 +19,7 @@ namespace SimpleScriptRunner
 
         #endregion
 
-        public static bool Main(string[] argArray)
+        public static int Main(string[] argArray)
         {
             try
             {
@@ -30,12 +30,12 @@ namespace SimpleScriptRunner
 
                 if (required.Count() == 3) Execute(required[0], required[1], required.Last(), useTransactions, requireRollback);
                 else Execute(required[0], required[1], required.Last(), useTransactions, requireRollback, required[2], required[3]);
-                return true;
+                return 0;
             }
             catch (Exception ex)
             {
                 WriteMessage(Assembly.GetExecutingAssembly().FullName, string.Empty, Category.error, "1", ex.ToString());
-                return false;
+                return 1; //see https://msdn.microsoft.com/en-us/library/0fwzzxz2.aspx
             }
         }
 
